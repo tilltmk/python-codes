@@ -17,14 +17,15 @@ Python Coding Project Collection
 
 ## Projects
 
-### AI-Template
+### [AI-Template](https://github.com/tilltmk/python-codes/tree/main/ai-template)
 
-- [`.env`](https://github.com/tilltmk/python-codes/blob/main/ai-template/.env) - Environment variables for the AI-Template project
+- Folder containing the AI template project
 
-### CSV-Editor
+### [CSV-Editor](https://github.com/tilltmk/python-codes/tree/main/csv-editor)
 
-- [`index.html`](https://github.com/tilltmk/python-codes/blob/main/csv-editor/index.html) - Homepage of the CSV Editor
+- Folder containing the CSV Editor project
 
-### Markdown-Hierarchy
+### [Markdown-Hierarchy](https://github.com/tilltmk/python-codes/tree/main/markdown-hierarchy)
 
-- [`README.md`](https://github.com/tilltmk/python-codes/blob/main/markdown-hierarchy/README.md) - Description and documentation of the Markdown Hierarchy
+- Folder containing the Markdown Hierarchy documentation
+
