@@ -1,5 +1,5 @@
-# python-codes
+# 🐍 python-codes
 Python Coding Project Collection 
 ---
 
-Collection of Helpful Python Scripts
+📚 Collection of Helpful Python Scripts
