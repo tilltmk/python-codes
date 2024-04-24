@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Viewer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery für einfacheres AJAX -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #05031b;
+            color: #ffffff;
+        }
+        .container {
+            border: 2px solid rgb(116, 25, 60);
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: rgba(180, 19, 19, 0.5);
+            color: #ffffff;
+        }
+        .table {
+            background-color: rgba(15, 102, 173, 0.171);
+            color: #ffffff;
+            border-radius: 15px;
+        }
+        /* Container für die Tabelle */
+        .table-container {
+        overflow: auto;
+        width: 100%;
+        height: 100vh; /* oder jede andere geeignete Höhe */
+        }
+
+        /* Die Tabelle selbst */
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        }
+
+        /* Scrollbar-Stil */
+        .table-container::-webkit-scrollbar {
+        width: 12px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+        background-color: #F5F5F5; /* Hintergrund der Scrollbar-Schiene */
+        border-radius: 10px; /* Abgerundete Ecken für die Schiene */
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+        background-color: #AAA; /* Farbe des Scrollbar-Griffs */
+        border-radius: 10px; /* Abgerundete Ecken für den Griff */
+        }
+
+        /* Hover- und Active-Zustände */
+        .table-container::-webkit-scrollbar-thumb:hover {
+        background-color: #909090;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:active {
+        background-color: #707070;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5 table-container">
+        <center>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Upload your file:</label>
+                    <p>
+
+                    </p>
+                    <input type="file" class="form-control" style="width: 35%;" id="file" name="file">
+                </div>
+                <p>
+
+                </p>
+                <button type="submit" class="btn">Submit</button>
+                <p>
+    
+                </p>
+            </form>
+        </center>
+        {% if table_data %}
+            const columns = {{ columns|tojson|safe }};
+        {% endif %}
+        {% if columns %}
+        <div class="mt-5">
+           <center>
+                <div>
+                    <p>
+                        Set Secret Key and Download Current Data:
+                    </p>
+                    <form action="/set_secret" method="post">
+                        <label for="secret">Set Secret: </label>
+                        <input type="text" id="secret" name="secret">
+                        <input type="submit" value="Set and Download">
+                    </form>  
+                    <p>
+
+                    </p>                      
+                    <p>
+
+                    </p>
+                    <label for="searchInput">Search Text in Cells:  </label>
+                    <p>
+
+                        
+                    </p>
+                    <input type="text" id="searchInput">
+                </div>            
+                <p>
+
+                </p>
+                <h2>Processed Data: </h2>
+           </center>
+        </div>
+        {% endif %}
+        <div class="mt-5" id="checkboxDiv">
+        {% for col in columns %}
+            <input type="checkbox" id="{{ col }}" checked> {{ col }}
+            <script>
+                const columns = JSON.parse(document.getElementById('columns').dataset.columns);
+                const checkboxDiv = document.getElementById('checkboxDiv');
+                const headerRow = document.getElementById('headerRow');
+        
+                // Dynamisch Checkboxen und Spaltenköpfe generieren
+                columns.forEach((column, index) => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = column;
+                    checkbox.checked = true;
+                    checkbox.addEventListener('change', () => toggleColumn(column));
+        
+                    const label = document.createElement('label');
+                    label.htmlFor = column;
+                    label.innerText = column;
+        
+                    checkboxDiv.appendChild(checkbox);
+                    checkboxDiv.appendChild(label);
+        
+                    const th = document.createElement('th');
+                    th.className = column + ' col' + index + ' draggable';
+                    th.innerText = column;
+        
+                    headerRow.appendChild(th);
+                });
+        
+                function toggleColumn(column) {
+                    const isChecked = document.getElementById(column).checked;
+                    const cells = document.getElementsByClassName(column);
+        
+                    for (let cell of cells) {
+                        cell.style.display = isChecked ? '' : 'none';
+                    }
+                }
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                const searchInput = document.getElementById('searchInput');
+
+                searchInput.addEventListener('keyup', function() {
+                    const query = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#tableBody tr');
+
+                    rows.forEach(row => {
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    let found = false;
+                    
+                    for (const cell of cells) {
+                        const cellText = cell.innerText.toLowerCase();
+                        if (cellText.includes(query)) {
+                        found = true;
+                        break;
+                        }
+                    }
+                    
+                    if (found) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                    });
+                });
+                });
+
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const checkboxes = document.querySelectorAll('.column-toggle');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            const columnIndex = this.getAttribute('data-column');
+                            const cells = document.querySelectorAll(`.col${columnIndex}`);
+                            cells.forEach(cell => {
+                                cell.style.display = this.checked ? '' : 'none';
+                            });
+                        });
+                    });
+                    const headers = document.querySelectorAll('.draggable');
+                    let draggedElem = null;
+                    headers.forEach((header) => {
+                        header.draggable = true;
+                        header.addEventListener('dragstart', function(e) {
+                            draggedElem = this;
+                            e.dataTransfer.effectAllowed = 'move';
+                        });
+                        header.addEventListener('dragenter', function(e) {
+                            if (draggedElem !== this) {
+                                this.classList.add('highlight');
+                            }
+                        });
+                        header.addEventListener('dragleave', function(e) {
+                            this.classList.remove('highlight');
+                        });
+                        header.addEventListener('dragover', function(e) {
+                            e.preventDefault();
+                        });
+                        header.addEventListener('drop', function(e) {
+                            e.preventDefault();
+                            this.classList.remove('highlight');
+                            if (draggedElem !== this) {
+                                let allHeaders = Array.from(document.querySelectorAll('.draggable'));
+                                let indexA = allHeaders.indexOf(draggedElem);
+                                let indexB = allHeaders.indexOf(this);
+                                swapColumns(indexA, indexB);
+                            }
+                        });
+                    });
+                
+                    function swapColumns(indexA, indexB) {
+                        const rows = Array.from(document.querySelectorAll('#tableBody tr'));
+                        rows.forEach((row) => {
+                            const cells = Array.from(row.querySelectorAll('td'));
+                            row.insertBefore(cells[indexB], cells[indexA]);
+                            row.insertBefore(cells[indexA], cells[indexB + 1]);
+                        });
+                        const headerRow = document.querySelector('#headerRow');
+                        const headerCells = Array.from(headerRow.querySelectorAll('th'));
+                        headerRow.insertBefore(headerCells[indexB], headerCells[indexA]);
+                        headerRow.insertBefore(headerCells[indexA], headerCells[indexB + 1]);
+                    }
+                
+                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            const colClass = this.id;
+                            document.querySelectorAll(`.${colClass}`).forEach(cell => {
+                                cell.style.display = this.checked ? '' : 'none';
+                            });
+                        });
+                    });
+                });
+            </script>
+            
+        {% endfor %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery für einfacheres AJAX -->
+        <script>
+        function updateSelectedColumns() {
+            const selectedColumns = [];
+            document.querySelectorAll('input[type=checkbox]:checked').forEach((checkbox) => {
+            selectedColumns.push(checkbox.id);
+            });
+
+            $.ajax({
+            url: '/update_csv',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({selected_columns: selectedColumns}),
+            success: function(response) {
+                console.log(response);
+            }
+            });
+        }
+
+        // Aufruf der Funktion, wenn sich der Zustand einer Checkbox ändert
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
+            checkbox.addEventListener('change', updateSelectedColumns);
+            });
+        });
+        </script>
+
+        <p>
+
+        </p>
+        <table class="table table-dark">
+            <thead>
+                <tr id="headerRow">
+                {% for col in columns %}
+                    <th class="{{ col }} draggable">{{ col }}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            {% for record in data %}
+                <tr>
+                {% for col in columns %}
+                    <td class="{{ col }}">{{ record[col] }}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+   
+        
+</body>
+</html>
