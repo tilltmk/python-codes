@@ -16,3 +16,25 @@ Bevor Sie das Script verwenden, stellen Sie sicher, dass Sie die `requests` Bibl
 
 ```bash
 pip install requests
+´´´
+
+## Beispiel 📖
+
+Angenommen, Ihre Markdown-Datei enthält den folgenden Link:
+
+https://github.com/octocat/Hello-World
+
+Nach der Ausführung des Scripts wird die Datei aktualisiert und sieht wie folgt aus:
+
+```
+https://github.com/octocat/Hello-World
+> Das ist eine Beschreibung des octocat/Hello-World Repositories.
+```
+
+## Lizenz 📄
+
+Dieses Projekt ist unter der MIT Lizenz lizenziert.
+
+## Unterstützung 🤝
+
+Falls Sie Unterstützung benötigen oder Verbesserungen vorschlagen möchten, eröffnen Sie bitte ein Issue in diesem Repository.
