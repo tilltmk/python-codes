@@ -3,6 +3,10 @@ import re
 
 inputter = input("Path to Markdown file:" )
 
+# RATE LIMIT BYPASS:
+# headers = {'Authorization': 'token XXXXXXXX'}
+# response = requests.get(api_url, headers=headers)
+
 # Pfad zur Markdown-Datei
 file_path = inputter
 
