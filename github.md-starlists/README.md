@@ -16,13 +16,15 @@ Bevor Sie das Script verwenden, stellen Sie sicher, dass Sie die `requests` Bibl
 
 ```bash
 pip install requests
-´´´
+```
 
 ## Beispiel 📖
 
 Angenommen, Ihre Markdown-Datei enthält den folgenden Link:
 
+```
 https://github.com/octocat/Hello-World
+```
 
 Nach der Ausführung des Scripts wird die Datei aktualisiert und sieht wie folgt aus:
 
