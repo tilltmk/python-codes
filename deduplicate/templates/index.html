@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Datei Deduplizierung</title>
+</head>
+<body>
+    <h1>Datei-Index</h1>
+    <button onclick="fetch('/update').then(response => response.json()).then(data => updateIndex(data))">Index aktualisieren</button>
+    <pre id="index"></pre>
+    <script>
+        function updateIndex(data) {
+            document.getElementById('index').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
