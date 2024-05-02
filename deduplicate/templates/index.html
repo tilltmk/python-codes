@@ -35,7 +35,7 @@
 <body>
     <div class="container glass-effect" style="margin: 10px; padding: 10px;">
         <h1>Datei-Index</h1>
-        <button class="btn btn-primary btn-glow" onclick="fetch('/update').then(response => response.json()).then(data => updateIndex(data))">Index aktualisieren</button>
+        <button class="btn btn-primary btn-glow" style="margin: 10px; padding: 10px;" onclick="fetch('/update').then(response => response.json()).then(data => updateIndex(data))">Index aktualisieren</button>
         <pre id="index"></pre>
     </div>
     <script>
