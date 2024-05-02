@@ -25,7 +25,14 @@ Python Coding Project Collection
 
 - Folder containing the CSV Editor project
 
+### [Deduplicate](https://github.com/tilltmk/python-codes/tree/main/deduplicate)
+
+- Folder containing the Deduplication tool
+
+### [GitHub Markdown Starlists](https://github.com/tilltmk/python-codes/tree/main/github.md-starlists)
+
+- Folder containing the GitHub Markdown enhancements tool
+
 ### [Markdown-Hierarchy](https://github.com/tilltmk/python-codes/tree/main/markdown-hierarchy)
 
-- Folder containing the Markdown Hierarchy documentation
-
+- Folder containing the Markdown Hierarchy documentation tool
