@@ -35,9 +35,11 @@ This Python script extracts ZIP files and displays a progress bar. Corrupted fil
 
 ## 📜 Example & Code
 
+example output:
+
 ![Screenshot of the ZIP Extractor](screenshots/Screenshot_20240527_215650.png)
 
-Here is the complete code of the program:
+complete code of the program:
 
 ```python
 import zipfile
