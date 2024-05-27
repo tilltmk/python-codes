@@ -19,7 +19,7 @@ Python Coding Project Collection
 
 ### [AI-Template](https://github.com/tilltmk/python-codes/tree/main/ai-template)
 
-- Folder containing the AI template project
+- Folder containing example of usage for any AI template with ollama
 
 ### [CSV-Editor](https://github.com/tilltmk/python-codes/tree/main/csv-editor)
 
@@ -29,9 +29,12 @@ Python Coding Project Collection
 
 - Folder containing the Deduplication tool
 
+### [Extract-Broken-Zip](https://github.com/tilltmk/python-codes/tree/main/extract-broken-zip)
+
+- Folder containing the ZIP extraction tool that skips broken files
+
 ### [GitHub Markdown Starlists](https://github.com/tilltmk/python-codes/tree/main/github.md-starlists)
 
-- Folder containing the GitHub Markdown enhancements tool
 
 ### [Markdown-Hierarchy](https://github.com/tilltmk/python-codes/tree/main/markdown-hierarchy)
 
