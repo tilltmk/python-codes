@@ -33,7 +33,9 @@ This Python script extracts ZIP files and displays a progress bar. Corrupted fil
 
 3. **Extraction**: The program will extract the ZIP file, display the progress, and skip corrupted files. After extraction is complete, a success message will be displayed.
 
-## 📜 Example Code
+## 📜 Example & Code
+
+![Screenshot of the ZIP Extractor](screenshots/Screenshot_20240527_215650.png)
 
 Here is the complete code of the program:
 
