@@ -1,7 +1,14 @@
+# metadaten werden beibehalten 
+# versionierung wenn dateien ungleich 
+# keine gui wegen performance 
+# verbose mode 
+# progressbar
+
 import os
 import shutil
 import hashlib
 from tqdm import tqdm
+import time
 
 def calculate_md5(file_path, block_size=65536):
     """Berechnet den MD5-Hash einer Datei."""
@@ -10,6 +17,10 @@ def calculate_md5(file_path, block_size=65536):
         for block in iter(lambda: f.read(block_size), b''):
             md5.update(block)
     return md5.hexdigest()
+
+def copy_with_metadata(source, dest):
+    """Kopiert eine Datei und behält dabei die Metadaten wie Zeitstempel bei."""
+    shutil.copy2(source, dest)
 
 def move_files(source_dir, dest_dir, verbose=False):
     """Verschiebt Dateien von einem Verzeichnis in ein anderes, mit Fortschrittsanzeige und optionalem Verbose-Modus."""
@@ -44,7 +55,11 @@ def move_files(source_dir, dest_dir, verbose=False):
 
                             dest_file = new_dest_file
 
-                shutil.move(source_file, dest_file)
+                # Datei kopieren und Metadaten beibehalten
+                copy_with_metadata(source_file, dest_file)
+                # Originaldatei löschen
+                os.remove(source_file)
+                
                 if verbose:
                     print(f"Verschoben {source_file} nach {dest_file}")
             pbar.update(1)
